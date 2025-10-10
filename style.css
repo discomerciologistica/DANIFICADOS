@@ -127,8 +127,16 @@ mark {
   table { font-size: 12px; }
 }
 
+/* COR DA FONTE DA PALAVRA SEM FOTO */
 .sem-foto {
   color: red;
   font-weight: bold;
 }
 
+/* SOMA DE LINHAS DA TABELA FILTRADA */
+.count-row th {
+  background: rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
+  text-align: left;
+  padding: 8px 12px;
+}
