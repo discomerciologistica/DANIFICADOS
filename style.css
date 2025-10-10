@@ -126,3 +126,9 @@ mark {
   #searchGeral { width: 90%; }
   table { font-size: 12px; }
 }
+
+.sem-foto {
+  color: red;
+  font-weight: bold;
+}
+
