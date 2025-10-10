@@ -48,20 +48,28 @@ function mostrarResultados(filtrados) {
 
   filtrados.forEach(d => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${d.pedido || ""}</td>
-      <td>${d.os || ""}</td>
-      <td>${d.fabricante || ""}</td>
-      <td>${d.status || ""}</td>
-      <td>${d.descricao || ""}</td>
-      <td>${d.cod || ""}</td>
-      <td>${d.btus || ""}</td>
-      <td>${d.nf_fabricante || ""}</td>
-      <td>${d.liquidacao || ""}</td>
-      <td>${d.setor || ""}</td>
-      <td>${d.fotos || ""}</td>
-      <td>${d.defeito || ""}</td>
-    `;
+
+    const fotosTexto = d.fotos || "";
+const fotosFormatado = /sem\s*foto/i.test(fotosTexto)
+  ? `<span class="sem-foto">${fotosTexto}</span>`
+  : fotosTexto;
+
+tr.innerHTML = `
+  <td>${d.pedido || ""}</td>
+  <td>${d.os || ""}</td>
+  <td>${d.fabricante || ""}</td>
+  <td>${d.status || ""}</td>
+  <td>${d.descricao || ""}</td>
+  <td>${d.cod || ""}</td>
+  <td>${d.btus || ""}</td>
+  <td>${d.nf_fabricante || ""}</td>
+  <td>${d.liquidacao || ""}</td>
+  <td>${d.setor || ""}</td>
+  <td>${fotosFormatado}</td>
+  <td>${d.defeito || ""}</td>
+`;
+
+    
     tbody.appendChild(tr);
   });
 
