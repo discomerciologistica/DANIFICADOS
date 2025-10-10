@@ -1,23 +1,28 @@
 let dados = [];
 
-// Carrega o CSV e obtém a data real de modificação
-fetch("dados.csv")
+// Carrega o CSV e mostra data de atualização
+fetch("danificados.csv")
   .then(response => {
     const dataArquivo = new Date(response.headers.get("Last-Modified"));
     if (!isNaN(dataArquivo)) {
-      const opcoes = { 
-        day: "2-digit", month: "2-digit", year: "numeric", 
-        hour: "2-digit", minute: "2-digit"
-      };
+      const opcoes = { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
       document.getElementById("ultimaAtualizacao").textContent =
         "Última atualização: " + dataArquivo.toLocaleString("pt-BR", opcoes);
     }
     return response.text();
   })
   .then(text => {
-    dados = text.split("\n").slice(1).map(linha => {
-      const [cidade, transportadora, uf, prazo, tipo] = linha.split(",");
-      return { cidade, transportadora, uf, prazo, tipo };
+    const linhas = text.split("\n").slice(1);
+    dados = linhas.map(linha => {
+      const [
+        pedido, os, fabricante, status, descricao, cod,
+        btus, nf_fabricante, liquidacao, setor, fotos, defeito
+      ] = linha.split(",");
+
+      return {
+        pedido, os, fabricante, status, descricao, cod,
+        btus, nf_fabricante, liquidacao, setor, fotos, defeito
+      };
     });
   });
 
@@ -27,16 +32,16 @@ const inputGeral = document.getElementById("searchGeral");
 const sugestoes = document.getElementById("suggestionsGeral");
 const contador = document.getElementById("contadorResultados");
 
-// Função para remover acentos
+// Remove acentos
 function removerAcentos(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// Mostrar resultados exatos
+// Exibir resultados
 function mostrarResultados(filtrados) {
   tbody.innerHTML = "";
   if (filtrados.length === 0) {
-    tbody.innerHTML = "<tr><td colspan='5'>Nenhum resultado encontrado.</td></tr>";
+    tbody.innerHTML = "<tr><td colspan='12'>Nenhum resultado encontrado.</td></tr>";
     contador.textContent = "";
     return;
   }
@@ -44,11 +49,18 @@ function mostrarResultados(filtrados) {
   filtrados.forEach(d => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${d.cidade || ""}</td>
-      <td>${d.transportadora || ""}</td>
-      <td>${d.uf || ""}</td>
-      <td>${d.prazo || ""}</td>
-      <td>${d.tipo || ""}</td>
+      <td>${d.pedido || ""}</td>
+      <td>${d.os || ""}</td>
+      <td>${d.fabricante || ""}</td>
+      <td>${d.status || ""}</td>
+      <td>${d.descricao || ""}</td>
+      <td>${d.cod || ""}</td>
+      <td>${d.btus || ""}</td>
+      <td>${d.nf_fabricante || ""}</td>
+      <td>${d.liquidacao || ""}</td>
+      <td>${d.setor || ""}</td>
+      <td>${d.fotos || ""}</td>
+      <td>${d.defeito || ""}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -56,33 +68,24 @@ function mostrarResultados(filtrados) {
   contador.textContent = `${filtrados.length} resultado${filtrados.length > 1 ? "s" : ""} encontrado${filtrados.length > 1 ? "s" : ""}`;
 }
 
-// Busca exata (sem acento)
+// Busca exata
 function buscar(termo) {
   const termoNormalizado = removerAcentos(termo.trim().toLowerCase());
-
   const filtrados = dados.filter(d => {
-    const cidade = removerAcentos(d.cidade?.toLowerCase() || "");
-    const transp = removerAcentos(d.transportadora?.toLowerCase() || "");
-    const uf = removerAcentos(d.uf?.toLowerCase() || "");
-    // Busca exata — precisa ser igual
-    return (
-      cidade === termoNormalizado ||
-      transp === termoNormalizado ||
-      uf === termoNormalizado
-    );
+    return Object.values(d)
+      .some(v => removerAcentos(v?.toLowerCase() || "") === termoNormalizado);
   });
-
   mostrarResultados(filtrados);
 }
 
-// Sugestões (contém o termo digitado)
+// Sugestões
 inputGeral.addEventListener("input", () => {
   const termo = inputGeral.value.trim().toLowerCase();
   const termoNormalizado = removerAcentos(termo);
   sugestoes.innerHTML = "";
   if (termo.length < 2) return;
 
-  const combinados = dados.flatMap(d => [d.cidade, d.transportadora, d.uf]);
+  const combinados = dados.flatMap(d => Object.values(d));
   const unicos = [...new Set(
     combinados.filter(v => removerAcentos(v?.toLowerCase() || "").includes(termoNormalizado))
   )];
@@ -99,7 +102,7 @@ inputGeral.addEventListener("input", () => {
   });
 });
 
-// Pressionar Enter → busca exata
+// Enter → buscar
 inputGeral.addEventListener("keydown", e => {
   if (e.key === "Enter") {
     sugestoes.innerHTML = "";
@@ -107,7 +110,7 @@ inputGeral.addEventListener("keydown", e => {
   }
 });
 
-// Fechar sugestões ao clicar fora
+// Clicar fora → fecha sugestões
 document.addEventListener("click", e => {
   if (!sugestoes.contains(e.target) && e.target !== inputGeral) {
     sugestoes.innerHTML = "";
