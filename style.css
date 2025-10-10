@@ -1,0 +1,128 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: url('fundo.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+}
+
+.container {
+  text-align: center;
+  margin-top: 8vh;
+  margin-bottom: 15vh;
+}
+
+h1 {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  margin-bottom: 6vh;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0;
+}
+
+.menu a {
+  background: linear-gradient(90deg, orange, gold);
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 8px rgba(0,0,0,0.8);
+  transition: 0.3s;
+}
+.menu a:hover {
+  background: linear-gradient(90deg, gold, orange);
+  transform: scale(1.05);
+}
+
+/* Campo de busca */
+#searchGeral {
+  padding: 12px 20px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+.suggestions {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 80%;
+  max-width: 400px;
+  background: rgba(0,0,0,0.8);
+  border-radius: 8px;
+  position: absolute;
+  left: 0; right: 0;
+  z-index: 10;
+}
+.suggestions li {
+  padding: 10px;
+  cursor: pointer;
+}
+.suggestions li:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Tabela */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 30px;
+}
+table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+th, td {
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th {
+  background: rgba(0,0,0,0.9);
+}
+tr:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+mark {
+  background: yellow;
+  color: black;
+}
+
+/* Infos */
+#contadorResultados {
+  margin-top: 15px;
+  font-size: 14px;
+}
+#ultimaAtualizacao {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ffeb3b;
+  text-shadow: 1px 1px 2px black;
+}
+
+/* Responsivo */
+@media(max-width: 600px){
+  h1 { font-size: 1.5rem; }
+  #searchGeral { width: 90%; }
+  table { font-size: 12px; }
+}

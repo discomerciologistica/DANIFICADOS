@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta de Prazos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Consulta de Prazos</h1>
+
+    <nav class="menu">
+      <ul>
+        <li><a href="uf_transportadoras.jpeg" target="_blank">UF DE ATENDIMENTO TRANSPORTADORA</a></li>
+      </ul>
+    </nav>
+
+    <input type="text" id="searchGeral" placeholder="Pesquisar cidade, transportadora ou UF..." autocomplete="off">
+    <ul id="suggestionsGeral" class="suggestions"></ul>
+
+    <div class="table-wrapper">
+      <table id="results">
+        <thead>
+          <tr>
+            <th>Cidade</th>
+            <th>Transportadora</th>
+            <th>UF</th>
+            <th>Prazo</th>
+            <th>Capital / Interior</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <p id="contadorResultados"></p>
+    <p id="ultimaAtualizacao">Última atualização: --</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
