@@ -39,42 +39,57 @@ function removerAcentos(str) {
 
 // Exibir resultados
 function mostrarResultados(filtrados) {
+  const thead = document.querySelector("#results thead");
+  const tbody = document.querySelector("#results tbody");
+
+  // Remove cabeçalho extra anterior (se existir)
+  const oldCountRow = document.querySelector(".count-row");
+  if (oldCountRow) oldCountRow.remove();
+
   tbody.innerHTML = "";
+
   if (filtrados.length === 0) {
     tbody.innerHTML = "<tr><td colspan='12'>Nenhum resultado encontrado.</td></tr>";
     contador.textContent = "";
     return;
   }
 
+  // 🔴 Cria linha de contagem acima das colunas
+  const countRow = document.createElement("tr");
+  countRow.classList.add("count-row");
+  countRow.innerHTML = `<th colspan="12" style="text-align:left; color: #ffeb3b;">
+    ${filtrados.length} registro${filtrados.length > 1 ? "s" : ""} encontrado${filtrados.length > 1 ? "s" : ""}
+  </th>`;
+  thead.prepend(countRow);
+
+  // Monta linhas normais
   filtrados.forEach(d => {
-    const tr = document.createElement("tr");
-
     const fotosTexto = d.fotos || "";
-const fotosFormatado = /sem\s*foto/i.test(fotosTexto)
-  ? `<span class="sem-foto">${fotosTexto}</span>`
-  : fotosTexto;
+    const fotosFormatado = /sem\s*foto/i.test(fotosTexto)
+      ? `<span class="sem-foto">${fotosTexto}</span>`
+      : fotosTexto;
 
-tr.innerHTML = `
-  <td>${d.pedido || ""}</td>
-  <td>${d.os || ""}</td>
-  <td>${d.fabricante || ""}</td>
-  <td>${d.status || ""}</td>
-  <td>${d.descricao || ""}</td>
-  <td>${d.cod || ""}</td>
-  <td>${d.btus || ""}</td>
-  <td>${d.nf_fabricante || ""}</td>
-  <td>${d.liquidacao || ""}</td>
-  <td>${d.setor || ""}</td>
-  <td>${fotosFormatado}</td>
-  <td>${d.defeito || ""}</td>
-`;
-
-    
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${d.pedido || ""}</td>
+      <td>${d.os || ""}</td>
+      <td>${d.fabricante || ""}</td>
+      <td>${d.status || ""}</td>
+      <td>${d.descricao || ""}</td>
+      <td>${d.cod || ""}</td>
+      <td>${d.btus || ""}</td>
+      <td>${d.nf_fabricante || ""}</td>
+      <td>${d.liquidacao || ""}</td>
+      <td>${d.setor || ""}</td>
+      <td>${fotosFormatado}</td>
+      <td>${d.defeito || ""}</td>
+    `;
     tbody.appendChild(tr);
   });
 
-  contador.textContent = `${filtrados.length} resultado${filtrados.length > 1 ? "s" : ""} encontrado${filtrados.length > 1 ? "s" : ""}`;
+  contador.textContent = `${filtrados.length} registro${filtrados.length > 1 ? "s" : ""} encontrado${filtrados.length > 1 ? "s" : ""}`;
 }
+
 
 // Busca exata
 function buscar(termo) {
