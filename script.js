@@ -83,7 +83,7 @@ function mostrarResultados(filtrados) {
       <td>${d.setor || ""}</td>
       <td>${fotosFormatado}</td>
       <td>${d.defeito || ""}</td>
-      <td>${d.Alerta || ""}</td>
+      <td>${d.alerta || ""}</td>
     `;
     tbody.appendChild(tr);
   });
