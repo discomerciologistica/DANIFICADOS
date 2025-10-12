@@ -133,6 +133,18 @@ mark {
   font-weight: bold;
 }
 
+}
+
+.separar {
+  color: blue;
+  font-weight: bold;
+}
+
+.encerrar {
+  color: green;
+  font-weight: bold;
+}
+
 /* SOMA DE LINHAS DA TABELA FILTRADA */
 .count-row th {
   background: rgba(0, 0, 0, 0.8);
