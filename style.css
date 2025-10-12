@@ -140,3 +140,20 @@ mark {
   text-align: left;
   padding: 8px 12px;
 }
+/* link do tutorial video */
+.dropdown-content a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-content a::before {
+  font-size: 18px;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(255,255,255,0.1);
+  transform: scale(1.03);
+  transition: 0.2s;
+}
+
