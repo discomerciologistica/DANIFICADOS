@@ -16,12 +16,12 @@ fetch("danificados.csv")
     dados = linhas.map(linha => {
       const [
         pedido, os, fabricante, status, descricao, cod,
-        btus, nf_fabricante, liquidacao, setor, fotos, defeito
+        btus, nf_fabricante, liquidacao, setor, fotos, defeito, alerta
       ] = linha.split(",");
 
       return {
         pedido, os, fabricante, status, descricao, cod,
-        btus, nf_fabricante, liquidacao, setor, fotos, defeito
+        btus, nf_fabricante, liquidacao, setor, fotos, defeito, alerta
       };
     });
   });
