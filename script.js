@@ -83,7 +83,17 @@ function mostrarResultados(filtrados) {
       <td>${d.setor || ""}</td>
       <td>${fotosFormatado}</td>
       <td>${d.defeito || ""}</td>
-      <td>${d.alerta || ""}</td>
+      <td>
+  ${
+    d.alerta
+      ? /separar/i.test(d.alerta)
+        ? `<span class="separar">${d.alerta}</span>`
+        : /encerrar/i.test(d.alerta)
+          ? `<span class="encerrar">${d.alerta}</span>`
+          : d.alerta
+      : ""
+  }
+</td>
     `;
     tbody.appendChild(tr);
   });
