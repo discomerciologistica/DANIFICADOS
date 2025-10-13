@@ -57,7 +57,7 @@ function mostrarResultados(filtrados) {
   // 🔴 Cria linha de contagem acima das colunas
   const countRow = document.createElement("tr");
   countRow.classList.add("count-row");
-  countRow.innerHTML = `<th colspan="12" style="text-align:left; color: #ffeb3b;">
+  countRow.innerHTML = `<th colspan="13" style="text-align:left; color: #ffeb3b;">
     ${filtrados.length} registro${filtrados.length > 1 ? "s" : ""} encontrado${filtrados.length > 1 ? "s" : ""}
   </th>`;
   thead.prepend(countRow);
