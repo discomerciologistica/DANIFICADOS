@@ -134,16 +134,6 @@ mark {
 }
 
 
-.separar {
-  color: blue;
-  font-weight: bold;
-}
-
-.encerrar {
-  color: green;
-  font-weight: bold;
-}
-
 /* SOMA DE LINHAS DA TABELA FILTRADA */
 .count-row th {
   background: rgba(0, 0, 0, 0.8);
@@ -223,3 +213,6 @@ mark {
   transform: translate(-50%, 0);
   pointer-events: auto;
 }
+
+.separar { color: blue; font-weight: bold; }
+.encerrar { color: green; font-weight: bold; }
