@@ -5,19 +5,24 @@ fetch("danificados.csv")
   .then(response => {
     const dataArquivo = new Date(response.headers.get("Last-Modified"));
     if (!isNaN(dataArquivo)) {
-      const opcoes = { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+      const opcoes = {
+        day: "2-digit", month: "2-digit", year: "numeric",
+        hour: "2-digit", minute: "2-digit"
+      };
       document.getElementById("ultimaAtualizacao").textContent =
         "Última atualização: " + dataArquivo.toLocaleString("pt-BR", opcoes);
     }
     return response.text();
   })
   .then(text => {
-    const linhas = text.split("\n").slice(1);
+    const linhas = text.split("\n").slice(1); // ignora cabeçalho
     dados = linhas.map(linha => {
+      // Quebra CSV corretamente mesmo com vírgulas dentro de aspas
+      const valores = linha.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
       const [
         pedido, os, fabricante, status, descricao, cod,
         btus, nf_fabricante, liquidacao, setor, fotos, defeito, alerta
-      ] = linha.split(",");
+      ] = valores.map(v => v.replace(/^"|"$/g, "")); // remove aspas externas
 
       return {
         pedido, os, fabricante, status, descricao, cod,
@@ -49,12 +54,12 @@ function mostrarResultados(filtrados) {
   tbody.innerHTML = "";
 
   if (filtrados.length === 0) {
-    tbody.innerHTML = "<tr><td colspan='12'>Nenhum resultado encontrado.</td></tr>";
+    tbody.innerHTML = "<tr><td colspan='13'>Nenhum resultado encontrado.</td></tr>";
     contador.textContent = "";
     return;
   }
 
-  // 🔴 Cria linha de contagem acima das colunas
+  // Cria linha de contagem
   const countRow = document.createElement("tr");
   countRow.classList.add("count-row");
   countRow.innerHTML = `<th colspan="13" style="text-align:left; color: #ffeb3b;">
@@ -62,7 +67,7 @@ function mostrarResultados(filtrados) {
   </th>`;
   thead.prepend(countRow);
 
-  // Monta linhas normais
+  // Monta linhas da tabela
   filtrados.forEach(d => {
     const fotosTexto = d.fotos || "";
     const fotosFormatado = /sem\s*foto/i.test(fotosTexto)
@@ -84,16 +89,16 @@ function mostrarResultados(filtrados) {
       <td>${fotosFormatado}</td>
       <td>${d.defeito || ""}</td>
       <td>
-  ${
-    d.alerta
-      ? /separar/i.test(d.alerta)
-        ? `<span class="separar">${d.alerta}</span>`
-        : /encerrar/i.test(d.alerta)
-          ? `<span class="encerrar">${d.alerta}</span>`
-          : d.alerta
-      : ""
-  }
-</td>
+        ${
+          d.alerta
+            ? /separar/i.test(d.alerta)
+              ? `<span class="separar">${d.alerta}</span>`
+              : /encerrar/i.test(d.alerta)
+                ? `<span class="encerrar">${d.alerta}</span>`
+                : d.alerta
+            : ""
+        }
+      </td>
     `;
     tbody.appendChild(tr);
   });
@@ -101,18 +106,17 @@ function mostrarResultados(filtrados) {
   contador.textContent = `${filtrados.length} registro${filtrados.length > 1 ? "s" : ""} encontrado${filtrados.length > 1 ? "s" : ""}`;
 }
 
-
-// Busca exata
+// Busca (corrigida para includes)
 function buscar(termo) {
   const termoNormalizado = removerAcentos(termo.trim().toLowerCase());
   const filtrados = dados.filter(d => {
     return Object.values(d)
-      .some(v => removerAcentos(v?.toLowerCase() || "") === termoNormalizado);
+      .some(v => removerAcentos(v?.toLowerCase() || "").includes(termoNormalizado));
   });
   mostrarResultados(filtrados);
 }
 
-// Sugestões
+// Sugestões de busca
 inputGeral.addEventListener("input", () => {
   const termo = inputGeral.value.trim().toLowerCase();
   const termoNormalizado = removerAcentos(termo);
