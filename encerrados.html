@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta Encerrados</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Consulta de Produtos Encerrados</h1>
+
+    <input type="text" id="searchGeral" placeholder="Pesquisar pedido, OS, fabricante, ou descrição..." autocomplete="off">
+    <ul id="suggestionsGeral" class="suggestions"></ul>
+
+    <div class="table-wrapper">
+      <table id="results">
+        <thead>
+          <tr>
+            <th>PEDIDO</th>
+            <th>OS</th>
+            <th>FABRICANTE</th>
+            <th>STATUS</th>
+            <th>DESCRIÇÃO PRODUTO</th>
+            <th>COD</th>
+            <th>BTUS</th>
+            <th>NF FABRICANTE</th>
+            <th>LIQUIDAÇÃO</th>
+            <th>SETOR</th>
+            <th>FOTOS</th>
+            <th>DEFEITO</th>
+            <th>ALERTA</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <p id="contadorResultados"></p>
+    <p id="ultimaAtualizacao">Última atualização: --</p>
+  </div>
+
+  <script src="encerrados.js"></script>
+</body>
+</html>
