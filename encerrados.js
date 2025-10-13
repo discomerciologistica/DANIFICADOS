@@ -16,12 +16,12 @@ fetch("ENCERRADOS.csv")
     dados = linhas.map(linha => {
       const [
         pedido, os, fabricante, status, descricao, cod,
-        btus, nf_fabricante, liquidacao, setor, fotos, pedido, alerta
+        btus, nf_fabricante, liquidacao, setor, fotos, defeito, alerta
       ] = linha.split(",");
 
       return {
         pedido, os, fabricante, status, descricao, cod,
-        btus, nf_fabricante, liquidacao, setor, fotos, pedido, alerta
+        btus, nf_fabricante, liquidacao, setor, fotos, defeito, alerta
       };
     });
   });
@@ -79,7 +79,7 @@ function mostrarResultados(filtrados) {
       <td>${d.liquidacao || ""}</td>
       <td>${d.setor || ""}</td>
       <td>${fotosFormatado}</td>
-      <td>${d.pedido || ""}</td>
+      <td>${d.defeito || ""}</td>
       <td>
         ${
           d.alerta
