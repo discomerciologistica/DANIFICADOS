@@ -216,3 +216,26 @@ mark {
 
 .separar { color: blue; font-weight: bold; }
 .encerrar { color: green; font-weight: bold; }
+
+
+/* botão encerrados */
+.btn-encerrados {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 5px 5px 8px rgba(0,0,0,0.6);
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.btn-encerrados:hover {
+  background-color: darkred;
+  transform: scale(1.05);
+}
+
