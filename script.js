@@ -150,3 +150,8 @@ document.addEventListener("click", e => {
     sugestoes.innerHTML = "";
   }
 });
+
+document.getElementById("btnEncerrados").addEventListener("click", () => {
+  window.location.href = "encerrados.html";
+});
+
