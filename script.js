@@ -68,6 +68,10 @@ function mostrarResultados(filtrados) {
     const fotosFormatado = /sem\s*foto/i.test(fotosTexto)
       ? `<span class="sem-foto">${fotosTexto}</span>`
       : fotosTexto;
+    const alertaTexto = d.alerta || "";
+    const alertaFormatado = /separar/i.test(alertaTexto)
+    ? `<span class="separar">${alertaTexto}</span>`
+      : aleraTexto;
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
