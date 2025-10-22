@@ -15,12 +15,12 @@ fetch("ENCERRADOS.csv")
     const linhas = text.split("\n").slice(1);
     dados = linhas.map(linha => {
       const [
-        pedido, os, fabricante, status, descricao, cod,
+        nº de controle, pedido, os, fabricante, status, descricao, cod,
         btus, nf_fabricante, liquidacao, setor, fotos, defeito, alerta
       ] = linha.split(",");
 
       return {
-        pedido, os, fabricante, status, descricao, cod,
+         nº de controle, pedido, os, fabricante, status, descricao, cod,
         btus, nf_fabricante, liquidacao, setor, fotos, defeito, alerta
       };
     });
@@ -68,6 +68,7 @@ function mostrarResultados(filtrados) {
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
+      <td>${d.nº de controle || ""}</td>
       <td>${d.pedido || ""}</td>
       <td>${d.os || ""}</td>
       <td>${d.fabricante || ""}</td>
