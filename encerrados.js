@@ -68,7 +68,7 @@ function mostrarResultados(filtrados) {
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${d.nº controle || ""}</td>
+      <td>${d.nºcontrole || ""}</td>
       <td>${d.pedido || ""}</td>
       <td>${d.os || ""}</td>
       <td>${d.fabricante || ""}</td>
