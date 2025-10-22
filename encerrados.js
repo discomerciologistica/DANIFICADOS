@@ -15,12 +15,12 @@ fetch("ENCERRADOS.csv")
     const linhas = text.split("\n").slice(1);
     dados = linhas.map(linha => {
       const [
-       nº controle, pedido, os, fabricante, status, descricao, cod,
+       nºcontrole, pedido, os, fabricante, status, descricao, cod,
         btus, nf_fabricante, liquidacao, setor, fotos, defeito, alerta
       ] = linha.split(",");
 
       return {
-        nº controle, pedido, os, fabricante, status, descricao, cod,
+        nºcontrole, pedido, os, fabricante, status, descricao, cod,
         btus, nf_fabricante, liquidacao, setor, fotos, defeito, alerta
       };
     });
