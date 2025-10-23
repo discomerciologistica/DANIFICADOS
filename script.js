@@ -58,8 +58,8 @@ function mostrarResultados(filtrados) {
   const countRow = document.createElement("tr");
   countRow.classList.add("count-row");
   countRow.innerHTML = `<th colspan="13" style="text-align:left; color: #ffeb3b;">
-    ${filtrados.length} registro${filtrados.length > 1 ? "s" : ""} encontrado${filtrados.length > 1 ? "s" : ""}
-  </th>`;
+    ${filtrados.length - 1} registro${filtrados.length - 1 > 1 ? "s" : ""} encontrado${filtrados.length - 1 > 1 ? "s" : ""}
+</th>`;
   thead.prepend(countRow);
 
   // Monta linhas normais
